@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -11,12 +10,10 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from '@/components/ui/button'
-import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignupValidation } from '@/lib/validation';
 import { useForm } from 'react-hook-form';
 import Loader from '@/components/shared/Loader'
-import { createUserAccount } from '@/lib/appwrite/api'
 import { useToast } from '@/components/ui/use-toast'
 import { useCreateAccount,  useSignInAccount } from '@/lib/react-query/queriesAndMutations'
 import { useUserContext } from '@/context/AuthContext'
