@@ -191,29 +191,25 @@ export const useDeletePost = () => {
 }
 
 
+
 export const useGetPosts = () => {
-
-  // useInfiniteQueryを使ってクエリを定義
   return useInfiniteQuery({
-
-    // クエリのキー
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
-    
+    queryFn: getInfinitePosts as any,
     // 投稿取得関数を指定 
-    queryFn: getInfinitePosts,
-    
-    // 次のページのパラメータを取得
-    getNextPageParam: (lastPage) => {
-    
+    getNextPageParam: (lastPage: any) => {
       // 投稿がない場合はnullを返す  
-      if(lastPage && lastPage.documents.length === 0 ) return null;
-      
+      if (lastPage && lastPage.documents.length === 0) {
+        return null;
+      }
+
       // 最後の投稿のIDを次のページのパラメータとして返す
-      const lastId = lastPage?.documents[lastPage.documents.length - 1].$id;
+      const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
       return lastId;
-    }
-  })
+    },
+  });
 }
+
 
 
 
