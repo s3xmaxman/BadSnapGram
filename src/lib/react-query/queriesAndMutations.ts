@@ -162,7 +162,7 @@ export const useGetCurrentUser = () => {
    })
 }
 
-export const useGetPostById = (postId: string) => {
+export const useGetPostById = (postId?: string) => {
   return useQuery({
     queryKey: [QUERY_KEYS.GET_POST_BY_ID, postId],
     queryFn: () => getPostById(postId),
@@ -183,7 +183,7 @@ export const useUpdatePost = () => {
 export const useDeletePost = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({postId, imageId}: {postId: string, imageId: string}) => deletePost(postId, imageId),
+    mutationFn: ({postId, imageId}: {postId?: string, imageId?: string}) => deletePost(postId, imageId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.GET_RECENT_POSTS] });
     }
@@ -202,16 +202,12 @@ export const useGetPosts = () => {
       if (lastPage && lastPage.documents.length === 0) {
         return null;
       }
-
       // 最後の投稿のIDを次のページのパラメータとして返す
       const lastId = lastPage.documents[lastPage.documents.length - 1].$id;
       return lastId;
     },
   });
 }
-
-
-
 
 
 export const useSearchPosts = (searchTerm: string) => {

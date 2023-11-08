@@ -294,7 +294,9 @@ export async function deleteSavedPost(savedRecordId: string){
     }
 }
 
-export async function getPostById(postId: string) {
+export async function getPostById(postId?: string) {
+  if (!postId) throw Error;
+
   try {
     const post = await databases.getDocument(
       appwriteConfig.databaseId,
@@ -380,7 +382,7 @@ export async function updatePost(post: IUpdatePost) {
 
 }
 
-export async function deletePost(postId: string, imageId: string) {
+export async function deletePost(postId?: string, imageId?: string) {
   if(!postId || !imageId) throw Error;
 
   try {
@@ -397,30 +399,23 @@ export async function deletePost(postId: string, imageId: string) {
 }
 
 
-export async function getInfinitePosts({ pageParam }:{pageParam: number}) {
-  // 投稿を更新日時の降順で並べ替える
-  const queries: any[] = [Query.orderDesc("$updatedAt"), 
-                         // 10件に制限する
-                         Query.limit(10)];
-  
-  // pageParamがあれば、その値より後の投稿を取得するようにする  
-  if(pageParam){
-    queries.push(Query.cursorAfter(pageParam.toString())); 
-  }
-  
-  try {
-    // クエリを実行して投稿を取得する
-    const posts = await databases.listDocuments(
-      appwriteConfig.databaseId, 
-      appwriteConfig.postCollectionId, 
-      queries
-    )
-    
-    if(!posts) throw Error;
-    
-    // 投稿を返す
-    return posts;
+export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
+  const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(9)];
 
+  if (pageParam) {
+    queries.push(Query.cursorAfter(pageParam.toString()));
+  }
+
+  try {
+    const posts = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      queries
+    );
+
+    if (!posts) throw Error;
+
+    return posts;
   } catch (error) {
     console.log(error);
   }
