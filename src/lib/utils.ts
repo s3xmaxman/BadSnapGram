@@ -5,9 +5,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const convertFileToUrl = (file: File) => {
+export const convertFileToUrl = (file: File):string => {
   // ファイルオブジェクトをURLに変換する 
-  URL.createObjectURL(file);
+  return URL.createObjectURL(file);
 }
 
 // 日付文字列をフォーマットして返す
