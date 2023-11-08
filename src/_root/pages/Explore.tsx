@@ -6,7 +6,7 @@ import useDebounce from '@/hooks/useDebounce'
 import { useGetPosts, useSearchPosts } from '@/lib/react-query/queriesAndMutations'
 import { useInView } from 'react-intersection-observer'
 
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 const Explore = () => {
   const { ref, inView } = useInView()
