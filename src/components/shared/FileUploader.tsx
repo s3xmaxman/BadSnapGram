@@ -1,4 +1,4 @@
-import React, {useState ,useCallback} from 'react'
+import {useState ,useCallback} from 'react'
 import {useDropzone, FileWithPath} from 'react-dropzone'
 import { Button } from '../ui/button'
 
