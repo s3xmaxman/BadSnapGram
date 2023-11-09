@@ -470,22 +470,22 @@ export async function getUsers() {
 }
 
 export async function getUserPosts(userId: string) {
-  if(userId === "") throw Error;
+  if (!userId) return;  // ユーザーIDが存在しない場合は処理を終了する 
 
   try {
-    // ユーザーの投稿を取得するクエリ
-    const posts = await databases.listDocuments(
+     // データベースから投稿を取得する 
+    const post = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
-      [
-        Query.equal("user", userId), // ユーザーIDに一致する投稿
-        Query.orderDesc("$createdAt") // 作成日時の降順
-      ]
+       // "creator" フィールドが指定されたユーザーIDと等しい条件
+       // "$createdAt" フィールドで降順にソートする条件  
+      [Query.equal("creator", userId), Query.orderDesc("$createdAt")]
     );
-    // 投稿が取得できなければエラー
-    if(!posts) throw Error;
-    // 取得した投稿を返す
-    return posts; 
+    
+    // 投稿が存在しない場合はエラーをスローする 
+    if (!post) throw Error;
+
+    return post;
   } catch (error) {
     console.log(error);
   }
