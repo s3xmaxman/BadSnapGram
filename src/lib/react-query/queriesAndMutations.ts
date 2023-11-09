@@ -191,7 +191,6 @@ export const useDeletePost = () => {
 }
 
 
-
 export const useGetPosts = () => {
   return useInfiniteQuery({
     queryKey: [QUERY_KEYS.GET_INFINITE_POSTS],
@@ -209,7 +208,6 @@ export const useGetPosts = () => {
     initialPageParam: null,
   });
 }
-
 
 
 export const useSearchPosts = (searchTerm: string) => {

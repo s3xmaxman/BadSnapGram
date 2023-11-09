@@ -7,6 +7,7 @@ import { Button } from '../ui/button'
 type FileUploaderProps = {
     filedChange: (FILES:File[]) => void;
     mediaUrl: string;
+
 }
 
 const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
@@ -22,7 +23,8 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
     const { getRootProps, getInputProps } = useDropzone({
         onDrop, // onDrop関数を指定
         accept: {
-            'image/*': ['.png', '.jpg', '.jpeg', '.svg'], // 受け入れるファイルの種類と拡張子を指定
+            'image/*': ['.png', '.jpg', '.jpeg', '.svg'],
+            'video/*': ['.mp4'],
         }
     })
 
@@ -38,6 +40,9 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
                     alt="image"
                     className='file_uploader-img'
                 />
+                <video controls>
+                    <source src={fileUrl} type="video/mp4" />
+                </video>
             </div>
             <p className='file_uploader-label'>
                 写真をクリックまたはドラッグして置き換え

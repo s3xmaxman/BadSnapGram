@@ -20,7 +20,7 @@ import { PostValidation } from "@/lib/validation";
 import { useUserContext } from "@/context/AuthContext";
 import { useToast } from "../ui/use-toast";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queriesAndMutations";
-import { Loader } from "lucide-react";
+import Loader from "../shared/Loader";
 
 
 type PostFormProps = {

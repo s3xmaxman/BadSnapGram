@@ -15,7 +15,7 @@ function LeftSidebar() {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate('/')
+      navigate('/sign-in')
     }
   }, [isSuccess])
 

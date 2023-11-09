@@ -54,7 +54,7 @@ const Explore = () => {
           </div>
       </div>
       <div className='flex-between w-full max-5-5xl mt-16 mb-7'>
-        <h3 className='body-bold md:h3-bold'>ポストの一覧</h3>
+        <h3 className='body-bold md:h3-bold margin-left'></h3>
         <div className='flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2 cursor-pointer '>
           <p className='small-medium lg:base-medium text-light-2'>All</p>
           <img 

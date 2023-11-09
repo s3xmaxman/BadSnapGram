@@ -94,7 +94,7 @@ return (
                 <p className="text-small-regular text-light-2 text-center mt-2">
                   アカウントをお持ちでない方はこちらから
                   <Link
-                    to="/sign-in"
+                    to="/sign-up"
                     className="text-primary-500 text-small-semibold ml-1">
                     新規登録
                   </Link>
