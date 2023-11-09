@@ -40,7 +40,7 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
                 />
             </div>
             <p className='file_uploader-label'>
-                    写真をクリックまたはドラッグして置き換え
+                写真をクリックまたはドラッグして置き換え
             </p>
             </>
            ) : (

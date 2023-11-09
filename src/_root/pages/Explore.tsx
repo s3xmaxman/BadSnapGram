@@ -9,33 +9,30 @@ import { useInView } from 'react-intersection-observer'
 import { useState, useEffect } from 'react'
 
 const Explore = () => {
-  const { ref, inView } = useInView()
-  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts()
-  const [searchValue, setSearchValue]=useState("")
-  const debounceValue = useDebounce(searchValue, 500);
-  const { data: searchedPosts, isFetching: isSearchFetching} = useSearchPosts(debounceValue)
+  const { ref, inView } = useInView();
+  const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
 
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearch = useDebounce(searchValue, 500);
+  const { data: searchedPosts, isFetching: isSearchFetching } = useSearchPosts(debouncedSearch);
 
   useEffect(() => {
-    // 画面内に入り、検索キーワードがない場合
     if (inView && !searchValue) {
-      // 次のページを読み込む
       fetchNextPage();
     }
   }, [inView, searchValue]);
 
-  if(!posts) {
+  if (!posts)
     return (
-      <div className='flex-center w-full h-full'>
-          <Loader />
+      <div className="flex-center w-full h-full">
+        <Loader />
       </div>
-    )
-  }
-
+    );
 
   const shouldShowSearchResults = searchValue !== "";
-  const shouldShowPosts = !shouldShowSearchResults && posts.pages.every((item) => item.documents.length === 0);
-
+  const shouldShowPosts = !shouldShowSearchResults && 
+  posts.pages.every((item) => item.documents.length === 0);
+  
   return (
     <div className='explore-container'>
       <div className='explore-inner_container'>

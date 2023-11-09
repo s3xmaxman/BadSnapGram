@@ -512,17 +512,13 @@ export async function updateUser(user: IUpdateUser) {
   const hasFileToUpdate = user.file.length > 0;
 
   try {
-
     let image = {
-      // 現在の画像URL
-      imageUrl: user.imageUrl,  
-      // 現在の画像ID
-      imageId: user.imageId,
+      imageUrl: user.imageUrl,  // 現在の画像URL
+      imageId: user.imageId, // 現在の画像ID
     };
 
     // 画像がアップロードされていたら
     if (hasFileToUpdate) {
-
       // アップロードしてファイル情報を取得
       const uploadedFile = await uploadFile(user.file[0]);
       if (!uploadedFile) throw Error;

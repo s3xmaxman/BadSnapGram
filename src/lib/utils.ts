@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const convertFileToUrl = (file: File):string => {
+export const convertFileToUrl = (file: File) => {
   // ファイルオブジェクトをURLに変換する 
   return URL.createObjectURL(file);
 }
