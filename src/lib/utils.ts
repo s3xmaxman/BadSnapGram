@@ -87,3 +87,18 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
 export const checkIsLiked = (likeList: string[], userId: string) => {
   return likeList.includes(userId);
 };
+
+
+export const useCreateBucketUrl = (fileId: string) => {
+  const url = import.meta.env.VITE_APPWRITE_API_ENDPOINT // Appwrite URL 
+  const id = import.meta.env.VITE_APPWRITE_STORAGE_ID // バケットID 
+  const endpoint = import.meta.env.VITE_APPWRITE_PROJECT_ID // エンドポイント
+
+  if( !id || !endpoint) return '' // URL、ID、エンドポイントが設定されていない場合は空の文字列を返す
+
+  return  `${url}/storage/buckets/${id}/files/${fileId}/view?project=${endpoint}`  // バケットURLを返す 
+}
+
+  
+
+

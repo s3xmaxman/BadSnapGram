@@ -6,6 +6,14 @@ import { useUserContext } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import PostStats from '@/components/shared/PostStats';
 import GridPostList from '@/components/shared/GridPostList';
+import { useCreateBucketUrl } from '@/lib/utils';
+import { useEffect, useState } from 'react';
+
+
+const getContentType = async (url: string) => {
+  const response = await fetch(url, { method: 'HEAD' });
+  return response.headers.get('Content-Type');
+};
 
 const PostDetails = () => {
   const navigate = useNavigate();
@@ -18,8 +26,8 @@ const PostDetails = () => {
   );
   const { mutate: deletePost } = useDeletePost();
   
-
   
+ 
   const relatedPosts = userPosts?.documents.filter(
     (userPost) => userPost.$id !== id
   );
@@ -28,6 +36,19 @@ const PostDetails = () => {
     deletePost({ postId: id, imageId: post?.imageId });
     navigate(-1);
   };
+
+  const [contentType, setContentType] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchContentType = async () => {
+      const type = await getContentType(useCreateBucketUrl(post?.imageId));
+      setContentType(type);
+    };
+    fetchContentType();
+  }, [post?.imageId]);
+
+  const isImage = contentType && contentType.startsWith('image');
+  const isVideo = contentType && contentType.startsWith('video');
 
   return (
     <div className="post_details-container">
@@ -50,12 +71,17 @@ const PostDetails = () => {
         <Loader />
       ) : (
         <div className="post_details-card">
-          <img
-            src={post?.imageUrl}
-            alt="creator"
-            className="post_details-img"
-          />
-
+          {isImage ? (
+            <img
+              src={post?.imageUrl}
+              alt="creator"
+              className="post_details-img"
+            />
+          ) : isVideo ? (
+            <video controls loop>
+              <source src={useCreateBucketUrl(post?.imageId)} type={contentType}/>
+            </video>
+          ) : null}
           <div className="post_details-info">
             <div className="flex-between w-full">
               <Link

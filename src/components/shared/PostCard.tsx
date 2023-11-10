@@ -1,16 +1,36 @@
 import { Models } from "appwrite";
 import { Link } from "react-router-dom";
-
+import { useEffect, useState } from "react";
 import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
 import PostStats from "./PostStats";
+import { useCreateBucketUrl } from '@/lib/utils';
 
 type PostCardProps = {
   post: Models.Document;
 };
 
+const getContentType = async (url: string) => {
+  const response = await fetch(url, { method: 'HEAD' });
+  return response.headers.get('Content-Type');
+};
+
+
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
+
+  const [contentType, setContentType] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchContentType = async () => {
+      const type = await getContentType(useCreateBucketUrl(post?.imageId));
+      setContentType(type);
+    };
+    fetchContentType();
+  }, [post?.imageId]);
+
+  const isImage = contentType && contentType.startsWith('image');
+  const isVideo = contentType && contentType.startsWith('video');
 
   if (!post.creator) return;
 
@@ -68,12 +88,17 @@ const PostCard = ({ post }: PostCardProps) => {
             ))}
           </ul>
         </div>
-
-        <img
-          src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
-          alt="post image"
-          className="post-card_img"
-        />
+          {isImage ? (
+            <img
+              src={post?.imageUrl || "/assets/icons/profile-placeholder.svg"}
+              alt="post image"
+              className="post-card_img"
+            />
+          ) : isVideo ? (
+            <video controls loop autoPlay muted >
+              <source src={useCreateBucketUrl(post?.imageId)} type={contentType}/>
+            </video>
+          ) : null}  
       </Link>
 
       <PostStats post={post} userId={user.id} />

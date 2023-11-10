@@ -35,14 +35,19 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
            fileUrl ? (
             <>
             <div className='flex flex-1 justify-center w-full p-5 lg:p-10'>
+            {
+            file[0] && file[0].type.startsWith('image') ? (
                 <img 
                     src={fileUrl}
                     alt="image"
                     className='file_uploader-img'
                 />
+            ) : (
                 <video controls>
                     <source src={fileUrl} type="video/mp4" />
                 </video>
+            )
+            }
             </div>
             <p className='file_uploader-label'>
                 写真をクリックまたはドラッグして置き換え
@@ -57,7 +62,7 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
                     height={77} 
                 />
                 <h3 className='base-medium text-light-2 mb-2 mt-6'>写真をアップロードする</h3>
-                <p className='text-light-4 small-regular mb-6'>SVG PNG JPG</p>
+                <p className='text-light-4 small-regular mb-6'>SVG PNG JPG MP4</p>
                 <Button className='shad-button_dark_4'>
                    ファイルを選択する
                 </Button>
@@ -66,6 +71,7 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
         }
     </div>
   )
+
 }
 
 export default FileUploader
