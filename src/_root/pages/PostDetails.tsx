@@ -53,6 +53,11 @@ const PostDetails = () => {
 
   const isImage = contentType && contentType.startsWith('image');
   const isVideo = contentType && contentType.startsWith('video');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    videoRef.current?.load();
+  }, [post?.imageId]);
 
   return (
     <div className="post_details-container">
