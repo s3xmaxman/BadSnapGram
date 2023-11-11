@@ -46,3 +46,9 @@ export type INavLink = {
     username: string;
     password: string;
   };
+
+  export interface IGoogleUser {
+    email: string;
+    name: string;
+    username: string;
+}

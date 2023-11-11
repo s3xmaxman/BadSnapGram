@@ -9,6 +9,13 @@ export const SignupValidation = z.object({
 
 })
 
+export const SignupGoogleValidation = z.object({
+    name: z.string().min(2, { message: "ネームは2文字以上必要です" }),
+    username: z.string().min(2, { message: "ユーザー名は2文字以上必要です" }),
+    email: z.string().email( { message: "有効なメールアドレスを入力してください" }),
+    password: z.string().min(8, { message: "パスワードは8文字以上必要です" })
+})
+
 
 export const SigninValidation = z.object({
     email: z.string().email( { message: "有効なメールアドレスを入力してください" }),

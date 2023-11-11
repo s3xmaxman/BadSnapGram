@@ -15,8 +15,10 @@ import { SignupValidation } from '@/lib/validation';
 import { useForm } from 'react-hook-form';
 import Loader from '@/components/shared/Loader'
 import { useToast } from '@/components/ui/use-toast'
-import { useCreateAccount,  useSignInAccount } from '@/lib/react-query/queriesAndMutations'
+import { useCreateAccount, useSignInAccount } from '@/lib/react-query/queriesAndMutations'
 import { useUserContext } from '@/context/AuthContext'
+import { account } from '@/lib/appwrite/config'
+import { generateRandomPassword } from '@/lib/utils'
 
 const SignupForm = () => {
   const { toast } = useToast();
@@ -25,7 +27,8 @@ const SignupForm = () => {
 
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } = useCreateAccount();
   const { mutateAsync: signInAccount, isPending: isSigningIn } = useSignInAccount();
-
+  
+  
   const form = useForm<z.infer<typeof SignupValidation>>({
     resolver: zodResolver(SignupValidation),
     defaultValues: {
@@ -35,6 +38,14 @@ const SignupForm = () => {
       password: "",
     },
   });
+
+   
+   async function registerViaGoogle() {
+     const res = await account.createOAuth2Session('google', "http://localhost:5173/", "http://localhost:5173/sign-up");
+     console.log(res);
+   }
+  
+  
 
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     const newUser = await createUserAccount(values); // ユーザーアカウントを作成
@@ -128,6 +139,12 @@ return (
                     </div>
                   ): "アカウントを作成" }
                 </Button>
+                <img 
+                  // onClick={registerViaGoogle}
+                  src="/assets/images/Social button.svg" 
+                  alt="google"
+                  className='cursor-pointer' 
+                />
                 <p className="text-small-regular text-light-2 text-center mt-2">
                   既にアカウントをお持ちですか？
                   <Link
@@ -139,7 +156,7 @@ return (
               </form>
         </div>
     </Form>
-   
+  
   )
 }
 

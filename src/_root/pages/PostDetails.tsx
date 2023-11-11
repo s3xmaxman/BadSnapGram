@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import PostStats from '@/components/shared/PostStats';
 import GridPostList from '@/components/shared/GridPostList';
 import { useCreateBucketUrl } from '@/lib/utils';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 
 const getContentType = async (url: string) => {
@@ -21,13 +21,9 @@ const PostDetails = () => {
   const { user } = useUserContext();
 
   const { data: post, isLoading } = useGetPostById(id);
-  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
-    post?.creator.$id
-  );
+  const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(post?.creator.$id);
   const { mutate: deletePost } = useDeletePost();
   
-  
- 
   const relatedPosts = userPosts?.documents.filter(
     (userPost) => userPost.$id !== id
   );
@@ -37,18 +33,32 @@ const PostDetails = () => {
     navigate(-1);
   };
 
+  // contentTypeとsetContentTypeをuseStateフックで初期化する
   const [contentType, setContentType] = useState<string | null>(null);
 
+  // useEffectフックを使用して、post?.imageIdの値が変更された場合に、fetchContentType関数を呼び出す
   useEffect(() => {
+    // fetchContentType関数を定義する
     const fetchContentType = async () => {
-      const type = await getContentType(useCreateBucketUrl(post?.imageId));
+      // useCreateBucketUrl関数を使用して、post?.imageIdを元に画像のURLを生成する
+      const url = useCreateBucketUrl(post?.imageId);
+      // getContentType関数を使用して、画像のContent-Typeを取得する
+      const type = await getContentType(url);
+      // 取得したContent-Typeを、useStateフックで初期化したcontentTypeに設定する
       setContentType(type);
     };
+    // fetchContentType関数を呼び出す
     fetchContentType();
   }, [post?.imageId]);
 
   const isImage = contentType && contentType.startsWith('image');
   const isVideo = contentType && contentType.startsWith('video');
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    videoRef.current?.load();
+  }, [post?.imageId]);
+
 
   return (
     <div className="post_details-container">
@@ -78,7 +88,7 @@ const PostDetails = () => {
               className="post_details-img"
             />
           ) : isVideo ? (
-            <video controls loop>
+            <video ref={videoRef} autoPlay muted controls loop className="post_details-img">
               <source src={useCreateBucketUrl(post?.imageId)} type={contentType}/>
             </video>
           ) : null}

@@ -1,6 +1,7 @@
 import {useState ,useCallback} from 'react'
 import {useDropzone, FileWithPath} from 'react-dropzone'
 import { Button } from '../ui/button'
+import { toast } from '../ui/use-toast'
 
 
 
@@ -10,22 +11,31 @@ type FileUploaderProps = {
 
 }
 
+type FileRejection = {
+    file: FileWithPath;
+    errors: {
+      code: string;
+      message: string;
+    }[];
+   };
+
 const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
     const [file, setFile] = useState<File[]>([]) 
     const [fileUrl, setFileUrl] = useState(mediaUrl) 
 
-    const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-        setFile(acceptedFiles) // 受け入れられたファイルをstateに設定
-        filedChange(acceptedFiles) // filedChange関数を呼び出し、ファイルの変更を処理
-        setFileUrl(URL.createObjectURL(acceptedFiles[0])) // 受け入れられたファイルのURLをstateに設定
-    }, [file])
+    const onDrop = useCallback((acceptedFiles: FileWithPath[], fileRejections: FileRejection[]) => {
+        setFile(acceptedFiles); // 受け入れられたファイルをstateに設定
+        filedChange(acceptedFiles); // filedChange関数を呼び出し、ファイルの変更を処理
+        setFileUrl(URL.createObjectURL(acceptedFiles[0])); // 受け入れられたファイルのURLをstateに設定   
+       }, [file]);
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop, // onDrop関数を指定
         accept: {
             'image/*': ['.png', '.jpg', '.jpeg', '.svg'],
             'video/*': ['.mp4'],
-        }
+        },
+        maxSize: 15 * 1024 * 1024, // ファイルの最大サイズを15MBに設定
     })
 
   return (
@@ -61,7 +71,8 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
                     width={96}
                     height={77} 
                 />
-                <h3 className='base-medium text-light-2 mb-2 mt-6'>写真をアップロードする</h3>
+                <h3 className='base-medium text-light-2 mb-2 mt-6'>写真か動画をアップロードする</h3>
+                <br />最大15MB
                 <p className='text-light-4 small-regular mb-6'>SVG PNG JPG MP4</p>
                 <Button className='shad-button_dark_4'>
                    ファイルを選択する

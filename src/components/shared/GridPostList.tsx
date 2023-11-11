@@ -35,27 +35,9 @@ const GridPostList = ({posts, showUser=true, showStats=true }: GridPostListProps
         }
       });
     }, [posts]);
-  
-    // useEffect(() => {
-    //   const videos = document.querySelectorAll('video');
-    //   videos.forEach((video) => {
-    //     const handleMouseEnter = () => {
-    //       video.play();
-    //     };
-    //     const handleMouseLeave = () => {
-    //       video.pause();
-    //       video.currentTime = 0;
-    //     };
-    //     video.addEventListener('mouseenter', handleMouseEnter);
-    //     video.addEventListener('mouseleave', handleMouseLeave);
-  
-    //     return () => {
-    //       video.removeEventListener('mouseenter', handleMouseEnter);
-    //       video.removeEventListener('mouseleave', handleMouseLeave);
-    //     };
-    //   });
-    // }, []);
-  
+   
+
+
     return (
       <ul className='grid-container'>
         {posts.map((post) => {

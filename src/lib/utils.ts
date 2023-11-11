@@ -99,6 +99,16 @@ export const useCreateBucketUrl = (fileId: string) => {
   return  `${url}/storage/buckets/${id}/files/${fileId}/view?project=${endpoint}`  // バケットURLを返す 
 }
 
+
+export function generateRandomPassword(length: number): string {
+  const characters: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result: string = '';
+  for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
   
 
 

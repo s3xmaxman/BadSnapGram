@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
 import { createPost, createUserAccount, deletePost, deleteSavedPost, getCurrentUser, getInfinitePosts, getPostById, getRecentPosts, getUserById, getUserPosts, getUsers, likePost, savePost, searchPosts, signInAccount, signOutAccount, updatePost, updateUser } from '../appwrite/api'
-import { INewPost, INewUser, IUpdatePost, IUpdateUser } from '@/types'
+import { IGoogleUser, INewPost, INewUser, IUpdatePost, IUpdateUser } from '@/types'
 import { QUERY_KEYS } from './queryKeys'
 
 export const useCreateAccount = () => {
@@ -10,6 +10,14 @@ export const useCreateAccount = () => {
         mutationFn: (user: INewUser) => createUserAccount(user),
     })
 }
+
+// export const useCreateGoogleAccount = () => {
+//   // useMutationを返す
+//   return useMutation({
+//       // mutationFnメソッドの処理は、引数として渡されたユーザー情報を使ってcreateGoogleAccountメソッドを呼び出す
+//       mutationFn: (user: IGoogleUser) => createGoogleAccount(user),
+//   })
+// }
 
 
 export const useSignInAccount = () => {

@@ -12,6 +12,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { SigninValidation } from "@/lib/validation";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
+import { account } from '@/lib/appwrite/config'
 
 const SigninForm = () => {
   const { toast } = useToast();
@@ -28,6 +29,7 @@ const SigninForm = () => {
       password: "",
     },
   });
+
 
   async function onSubmit(values: z.infer<typeof SigninValidation>) {
     const session = await signInAccount({ email: values.email, password: values.password, }); // 認証情報でサインイン
@@ -91,6 +93,12 @@ return (
                     </div>
                   ): "アカウントにログイン" }
                 </Button>
+                <img 
+                  // onClick={loginViaGoogle}
+                  src="/assets/images/Social button.svg" 
+                  alt="google"
+                  className='cursor-pointer'  
+                />
                 <p className="text-small-regular text-light-2 text-center mt-2">
                   アカウントをお持ちでない方はこちらから
                   <Link
