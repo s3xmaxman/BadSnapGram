@@ -20,13 +20,17 @@ const Home = ({ user }: UserCardProps) => {
       <div className='home-container'>
         <div className='home-posts'>
         <div className="flex"> 
-         {creators?.documents?.map((creator: Models.Document) => (
+        {creators?.documents?.map((creator: Models.Document, index: number) => {
+            if (index >= 5) {
+              return null;
+            }
+            return (
               <div className="rounded-full overflow-hidden mr-3" key={creator.id}>
                 <UserImage user={creator} /> 
               </div>
-            ))}
+            );
+          })}
           </div>
-          <h2 className='h3-bold md:h2-bold text-left w-full'>ホーム</h2>
           {isPostLoading && !posts ? (
             <Loader />
           ) : (
