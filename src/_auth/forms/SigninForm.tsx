@@ -29,8 +29,7 @@ const SigninForm = () => {
       password: "",
     },
   });
-
-
+  
   async function onSubmit(values: z.infer<typeof SigninValidation>) {
     const session = await signInAccount({ email: values.email, password: values.password, }); // 認証情報でサインイン
     if(!session) {
@@ -87,18 +86,18 @@ return (
                   type="submit"
                   className="shad-button_primary"
                   >
-                  { isUserLoading ? (
+                  { false ? (
                     <div className='flex-center gap-2'>
                       <Loader />  ロード中
                     </div>
                   ): "アカウントにログイン" }
                 </Button>
-                <img 
-                  // onClick={loginViaGoogle}
+                {/* <img 
+                  onClick={() => {}}
                   src="/assets/images/Social button.svg" 
                   alt="google"
                   className='cursor-pointer'  
-                />
+                /> */}
                 <p className="text-small-regular text-light-2 text-center mt-2">
                   アカウントをお持ちでない方はこちらから
                   <Link

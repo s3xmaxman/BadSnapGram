@@ -2,15 +2,30 @@ import PostCard from '@/components/shared/PostCard';
 import { useGetRecentPosts } from '@/lib/react-query/queriesAndMutations';
 import { Models } from 'appwrite';
 import { Loader } from 'lucide-react';
+import { useGetUsers } from '@/lib/react-query/queriesAndMutations';
+import UserImage from '@/components/shared/UserImage';
 
 
+type UserCardProps = {
+  user: Models.Document;
+};
 
-const Home = () => {
+const Home = ({ user }: UserCardProps) => {
   const { data: posts, isPending: isPostLoading, isError: isErrorPosts } = useGetRecentPosts()
+  const { data: creators, isLoading, isError: isErrorCreators } = useGetUsers();
+  
+
   return (
     <div className='flex flex-1'>
       <div className='home-container'>
         <div className='home-posts'>
+        <div className="flex"> 
+         {creators?.documents?.map((creator: Models.Document) => (
+              <div className="rounded-full overflow-hidden mr-3" key={creator.id}>
+                <UserImage user={creator} /> 
+              </div>
+            ))}
+          </div>
           <h2 className='h3-bold md:h2-bold text-left w-full'>ホーム</h2>
           {isPostLoading && !posts ? (
             <Loader />

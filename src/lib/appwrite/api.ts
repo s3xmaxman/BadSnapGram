@@ -1,5 +1,4 @@
-import { IGoogleUser, INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
-
+import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { ID, Query } from "appwrite";
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
 
@@ -24,7 +23,7 @@ export async function createUserAccount(user: INewUser) {
             accountId: newAccount.$id,
             name: newAccount.name,
             email: newAccount.email,
-            username: user.username,
+            username: newAccount.name,
             imageUrl: avatarUrl
         })
 
@@ -37,38 +36,7 @@ export async function createUserAccount(user: INewUser) {
     }
 }
 
-// export async function createGoogleAccount(user: IGoogleUser) {
-//   try {
-//       // Googleから取得したユーザー情報を使用して新しいアカウントを作成する
-//       const newAccount = await account.create(
-//           ID.unique(),
-//           user.email,
-//           user.name
-//       )
 
-//       // もし新しいアカウントが存在しない場合は、エラーをスローする
-//       if (!newAccount) throw Error
-
-//       // アバターのURLを取得する
-//       const avatarUrl = avatars.getInitials(user.name)
-
-//       // ユーザーをデータベースに保存する
-//       const newUser = await saveUserToDB({
-//           accountId: newAccount.$id,
-//           name: newAccount.name,
-//           email: newAccount.email,
-//           username: user.username,
-//           imageUrl: avatarUrl
-//       })
-
-//       // 新しいユーザーオブジェクトを返す
-//       return newUser;
-//   } catch (error) {
-//       // エラーが発生した場合は、エラーメッセージをコンソールに出力し、エラーオブジェクトを返す
-//       console.log(error);
-//       return error
-//   }
-// }
 
 export async function saveUserToDB (user: {
     accountId: string;
@@ -89,8 +57,7 @@ export async function saveUserToDB (user: {
     } catch (error) {
         console.log(error);
         return error
-    }
-    
+    }  
 }
 
 export async function signInAccount(user: {
