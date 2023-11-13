@@ -32,10 +32,10 @@ const Home = () => {
      <div className='home-container'>
        <div className='home-posts'>
          <div className="flex flex-row lg:space-x-12 space-x-6"> 
-           {creators?.documents?.slice().sort(() => Math.random() - 0.5).slice(0, windowWidth < 768 ? 4 : 6).map((creator: Models.Document) => (
-             <div className="flex flex-col items-center space-y-2" key={creator.id}>
+           {creators?.documents?.slice().sort(() => Math.random() - 0.5).slice(0, windowWidth < 768 ? 4 : 6).map((creator: Models.Document, i) => (
+             <div className="flex flex-col items-center space-y-2" key={i} >
                <div className="rounded-full overflow-hidden w-14 h-14">
-                <UserImage user={creator} /> 
+                <UserImage user={creator} key={i} /> 
                </div>
                <div className="text-xs sm:text-xs md:text-xs lg:text-xs xl:text-xs overflow-hidden truncate">
                 {creator.username}

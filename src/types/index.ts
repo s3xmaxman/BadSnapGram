@@ -52,3 +52,28 @@ export type INavLink = {
     name: string;
     username: string;
 }
+
+  export type Post = {
+    $collectionId: string;
+    $createdAt: string;
+    $databaseId: string;
+    $id: string;
+    $permissions: string[];
+    $updatedAt: string;
+    caption: string;
+    creator: {
+      name: string;
+      username: string;
+      accountId: string;
+      email: string;
+      bio: string;
+    };
+    imageId: string;
+    imageUrl: string;
+    likes: any[];
+    location: string;
+    mimeType: string | null;
+    save: any[];
+    tags: string[];
+};
+ 
