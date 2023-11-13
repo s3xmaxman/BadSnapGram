@@ -38,6 +38,11 @@ export const sidebarLinks = [
       label: "探索",
     },
     {
+      imgURL: "/assets/icons/people.svg",
+      route: "/all-users",
+      label: "ユーザー",
+    },
+    {
       imgURL: "/assets/icons/bookmark.svg",
       route: "/saved",
       label: "保存済み",

@@ -24,7 +24,8 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
           'image/*': ['.png', '.jpg', '.jpeg', '.svg'], // 受け入れるファイルの種類と拡張子を指定
       }
   })
-
+  
+  console.log(fileUrl)
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} className="cursor-pointer" />

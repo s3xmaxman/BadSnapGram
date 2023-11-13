@@ -36,8 +36,6 @@ export async function createUserAccount(user: INewUser) {
     }
 }
 
-
-
 export async function saveUserToDB (user: {
     accountId: string;
     email: string;
@@ -109,8 +107,6 @@ export async function signOutAccount() {
     }
 }
 
-
-
 export async function uploadFile(file: File) {
     try {
         const uploadedFile = await storage.createFile(
@@ -140,8 +136,6 @@ export function getFilePreview(fileId: string) {
     }
 }
 
-
- 
 export async function deleteFile(fileId: string) {
     try {
       await storage.deleteFile(appwriteConfig.storageId, fileId);
@@ -151,7 +145,6 @@ export async function deleteFile(fileId: string) {
       console.log(error);
     }
 }
-
 
 export async function getRecentPosts() {
     const posts = await databases.listDocuments(
@@ -448,7 +441,6 @@ export async function searchPosts(searchTerm: string) {
   }
 
 }
-
 
 export async function getUsers() {
   try {

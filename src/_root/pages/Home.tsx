@@ -10,18 +10,22 @@ import UserImage from '@/components/shared/UserImage';
 const Home = () => {
   const { data: posts, isPending: isPostLoading, isError: isErrorPosts } = useGetRecentPosts()
   const { data: creators, isLoading, isError: isErrorCreators } = useGetUsers();
-  
 
   return (
     <div className='flex flex-1'>
       <div className='home-container'>
         <div className='home-posts'>
-        <div className="flex"> 
-        {creators?.documents?.slice().sort(() => Math.random() - 0.5).slice(0, 5).map((creator: Models.Document) => (
-          <div className="rounded-full overflow-hidden mr-5" key={creator.id}>
-            <UserImage user={creator} /> 
-          </div>
-        ))}
+          <div className="flex flex-row lg:space-x-12 space-x-6"> 
+            {creators?.documents?.slice().sort(() => Math.random() - 0.5).slice(0, 6).map((creator: Models.Document) => (
+              <div className="flex flex-col items-center space-y-2" key={creator.id}>
+                <div className="rounded-full overflow-hidden w-14 h-14">
+                  <UserImage user={creator} /> 
+                </div>
+                <div className="text-xs sm:text-xs md:text-xs lg:text-xs xl:text-xs overflow-hidden truncate">
+                  {creator.username}
+                </div>
+              </div>
+            ))}
           </div>
           {isPostLoading && !posts ? (
             <Loader />

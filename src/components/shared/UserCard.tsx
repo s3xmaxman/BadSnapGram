@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 type UserCardProps = {
     user: Models.Document;
+    className?: string;
 };
 
 const UserCard = ({ user }: UserCardProps) => {

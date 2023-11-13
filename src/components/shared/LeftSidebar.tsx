@@ -19,7 +19,7 @@ function LeftSidebar() {
     }
   }, [isSuccess])
 
-
+  console.log(user)
   return (
     <nav className="leftsidebar">
         <div className='flex flex-col gap-11'>
