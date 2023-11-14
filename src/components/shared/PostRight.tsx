@@ -38,16 +38,16 @@ const PostRight = ({posts, showUser=true, showStats=true }: GridPostListProps) =
 
 return (
     <ul className='flex flex-col items-center'>
-      {posts.map((post) => {
+      {posts.map((post, index) => {
         const contentType = contentTypes.get(post.imageId);
         const isImage = contentType && contentType.startsWith('image');
         return (
-          <li key={post.$id} className='relative w-80 h-80'>
-            <Link to={`/posts/${post.$id}`} className='grid-post_link'>
+          <li  className='relative w-80 h-80'>
+            <Link  to={`/posts/${post.$id}`} className='grid-post_link'>
               {contentType ? (
                 isImage ? (
                   <img
-                    src={post?.imageUrl}
+                    src={useCreateBucketUrl(post?.imageId)} 
                     alt="post"
                     className='h-full w-full object-cover'
                   />

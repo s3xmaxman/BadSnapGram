@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 type UserImageProps = {
     user: Models.Document;
  };
+
+ 
  
  const UserImage = ({ user }: UserImageProps) => {
     return (

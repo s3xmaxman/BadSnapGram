@@ -19,6 +19,8 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { user } = useUserContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const { data: post, isLoading } = useGetPostById(id);
   const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(post?.creator.$id);
@@ -58,7 +60,13 @@ const PostDetails = () => {
   useEffect(() => {
     videoRef.current?.load();
   }, [post?.imageId]);
+  
+  const handleImageClick = () => {
+    setIsModalOpen(true);
+  };
 
+
+  
   return (
     <div className="post_details-container">
       <div className="hidden md:flex max-w-5xl w-full">
@@ -82,15 +90,27 @@ const PostDetails = () => {
         <div className="post_details-card">
           {isImage ? (
             <img
-              src={post?.imageUrl}
+              onClick={handleImageClick}
+              src={useCreateBucketUrl(post?.imageId)}
               alt="creator"
-              className="post_details-img"
+              className="post_details-img cursor-pointer"
             />
           ) : isVideo ? (
             <video ref={videoRef} autoPlay muted controls loop className="post_details-img">
               <source src={useCreateBucketUrl(post?.imageId)} type={contentType}/>
             </video>
           ) : null}
+           {isModalOpen && (
+              <div className="modal" style={{ backdropFilter: 'blur(15px)',  }}>
+                <div className="modal-content">
+                  <img 
+                      className="modal-image" 
+                      src={useCreateBucketUrl(post?.imageId)} 
+                      alt="Post" 
+                      onClick={() => setIsModalOpen(false)} />
+                </div>
+              </div>
+            )}
           <div className="post_details-info">
             <div className="flex-between w-full">
               <Link

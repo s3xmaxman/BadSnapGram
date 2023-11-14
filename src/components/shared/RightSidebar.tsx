@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useUserContext } from '@/context/AuthContext';
-import GridPostList from '@/components/shared/GridPostList'
+import { useState, useEffect } from 'react'
 import { useGetCurrentUser, useGetPosts} from '@/lib/react-query/queriesAndMutations';
 import { Post } from '@/types';
 import PostRight from './PostRight';
@@ -32,7 +30,7 @@ const RightSidebar = () => {
 
  
   return (
-    <nav className="hidden md:flex px-6 py-10 flex-col items-center justify-start min-w-[350px] bg-dark-1">
+    <nav className="rightsidebar">
       <img 
         src={currentUser?.imageUrl} 
         alt="" 
@@ -44,7 +42,7 @@ const RightSidebar = () => {
         <p className='text-light-1'>おすすめ</p>
           {displayPosts.map((item, index) => (
             <div className='py-2'>
-            <PostRight key={`page-${index}`} posts={[item]} showStats={false} showUser ={false}/> 
+              <PostRight key={`page-${index}`} posts={[item]} showStats={false} showUser ={false}/> 
             </div>
           ))}
       </div>

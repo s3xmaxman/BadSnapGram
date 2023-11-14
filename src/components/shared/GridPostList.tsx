@@ -50,7 +50,7 @@ const GridPostList = ({posts, showUser=true, showStats=true }: GridPostListProps
                 {contentType ? (
                   isImage ? (
                     <img
-                      src={post?.imageUrl}
+                      src={useCreateBucketUrl(post?.imageId)}
                       alt="post"
                       className='h-full w-full object-cover'
                     />

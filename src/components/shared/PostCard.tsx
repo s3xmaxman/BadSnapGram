@@ -90,14 +90,16 @@ const PostCard = ({ post }: PostCardProps) => {
         </div>
           {isImage ? (
             <img
-              src={post?.imageUrl || "/assets/icons/profile-placeholder.svg"}
+              src={useCreateBucketUrl(post?.imageId)}
               alt="post image"
               className="post-card_img"
             />
           ) : isVideo ? (
-            <video controls loop autoPlay muted >
-              <source src={useCreateBucketUrl(post?.imageId)} type={contentType}/>
-            </video>
+              <div className="py-2">
+                <video controls loop autoPlay muted >
+                  <source src={useCreateBucketUrl(post?.imageId)} type={contentType}/>
+                </video>
+              </div>
           ) : null}  
       </Link>
 

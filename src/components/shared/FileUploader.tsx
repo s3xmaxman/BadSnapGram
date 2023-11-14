@@ -32,7 +32,7 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
     const { getRootProps, getInputProps } = useDropzone({
         onDrop, // onDrop関数を指定
         accept: {
-            'image/*': ['.png', '.jpg', '.jpeg', '.svg'],
+            'image/*': ['.png', '.jpg', '.jpeg', '.svg', '.gif'],
             'video/*': ['.mp4'],
         },
         maxSize: 15 * 1024 * 1024, // ファイルの最大サイズを15MBに設定
@@ -73,7 +73,7 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
                 />
                 <h3 className='base-medium text-light-2 mb-2 mt-6'>写真か動画をアップロードする</h3>
                 <br />最大15MB
-                <p className='text-light-4 small-regular mb-6'>SVG PNG JPG MP4</p>
+                <p className='text-light-4 small-regular mb-6'>SVG PNG JPG MP4 Gif</p>
                 <Button className='shad-button_dark_4'>
                    ファイルを選択する
                 </Button>
