@@ -7,12 +7,10 @@ import PostRight from './PostRight';
 
 
 
- 
-
 const RightSidebar = () => {
-  const {data: currentUser} = useGetCurrentUser()
+  const { data: currentUser} = useGetCurrentUser()
   const { data: posts } = useGetPosts()
-  const [displayPosts, setDisplayPosts] = useState<Post[]>([]);
+  const [ displayPosts, setDisplayPosts ] = useState<Post[]>([]);
   
   useEffect(() => {
     if (posts) {
@@ -32,10 +30,9 @@ const RightSidebar = () => {
  
    
 
-  console.log(posts?.pages)
  
   return (
-    <nav className="hidden md:flex px-6 py-10 flex flex-col items-center justify-start min-w-[320px] bg-dark-2">
+    <nav className="hidden md:flex px-6 py-10 flex-col items-center justify-start min-w-[350px] bg-dark-1">
       <img 
         src={currentUser?.imageUrl} 
         alt="" 
@@ -44,10 +41,10 @@ const RightSidebar = () => {
       <h1 className='h3-bold md:h2-bold w-full mb-2 flex-center'>{currentUser?.name}</h1>
       <p className='text-light-3 flex-center'>@{currentUser?.username}</p>
       <div className="flex flex-col justify-center w-full py-4">
-        <p className='text-lg text-light-1'>おすすめ</p>
+        <p className='text-light-1'>おすすめ</p>
           {displayPosts.map((item, index) => (
-            <div className='py-1 flex '>
-            <PostRight key={`page-${index}`} posts={[item]} showStats={true} showUser ={false}  /> 
+            <div className='py-2'>
+            <PostRight key={`page-${index}`} posts={[item]} showStats={false} showUser ={false}/> 
             </div>
           ))}
       </div>

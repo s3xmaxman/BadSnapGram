@@ -52,7 +52,7 @@ return (
                     className='h-full w-full object-cover'
                   />
                 ) : (
-                  <video autoPlay muted loop className='h-full w-full object-cover '>
+                  <video autoPlay muted loop className='h-full w-full object-cover'>
                     <source src={useCreateBucketUrl(post?.imageId)} type={contentType} />
                   </video>
                 )
