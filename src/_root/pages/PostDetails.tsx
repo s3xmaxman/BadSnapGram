@@ -10,6 +10,8 @@ import { useCreateBucketUrl } from '@/lib/utils';
 import { useEffect, useState, useRef } from 'react';
 
 
+
+
 const getContentType = async (url: string) => {
   const response = await fetch(url, { method: 'HEAD' });
   return response.headers.get('Content-Type');
@@ -57,6 +59,7 @@ const PostDetails = () => {
   const isVideo = contentType && contentType.startsWith('video');
   const videoRef = useRef<HTMLVideoElement>(null);
 
+
   useEffect(() => {
     videoRef.current?.load();
   }, [post?.imageId]);
@@ -64,9 +67,19 @@ const PostDetails = () => {
   const handleImageClick = () => {
     setIsModalOpen(true);
   };
-
-
   
+
+ document.addEventListener('fullscreenchange', (event) => {
+    const videoElement = document.querySelector('video');
+    if (videoElement) {
+        if (document.fullscreenElement) {
+            videoElement.classList.remove('post_details-img'); // ビデオ要素のクラスリストから 'post_details-img' を削除します
+        } else {
+            videoElement.classList.add('post_details-img'); // ビデオ要素のクラスリストに 'post_details-img' を追加します
+        }
+    }
+  });
+     
   return (
     <div className="post_details-container">
       <div className="hidden md:flex max-w-5xl w-full">

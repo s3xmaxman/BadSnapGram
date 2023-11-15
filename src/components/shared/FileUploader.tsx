@@ -73,7 +73,7 @@ const FileUploader = ({ filedChange, mediaUrl }: FileUploaderProps) => {
                 />
                 <h3 className='base-medium text-light-2 mb-2 mt-6'>写真か動画をアップロードする</h3>
                 <br />最大15MB
-                <p className='text-light-4 small-regular mb-6'>SVG PNG JPG MP4 Gif</p>
+                <p className='text-light-4 small-regular mb-6'>SVG PNG JPG MP4 GIF</p>
                 <Button className='shad-button_dark_4'>
                    ファイルを選択する
                 </Button>
