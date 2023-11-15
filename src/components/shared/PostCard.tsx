@@ -18,8 +18,8 @@ const getContentType = async (url: string) => {
 
 const PostCard = ({ post }: PostCardProps) => {
   const { user } = useUserContext();
-
   const [contentType, setContentType] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchContentType = async () => {
@@ -46,7 +46,10 @@ const PostCard = ({ post }: PostCardProps) => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange); // コンポーネントがアンマウントされる際にイベントリスナーを削除します
     };
   }, []);
- 
+   
+  const handleImageClick = () => {
+    setIsModalOpen(true);
+  };
   
 
   if (!post.creator) return;
@@ -105,19 +108,31 @@ const PostCard = ({ post }: PostCardProps) => {
             ))}
           </ul>
         </div>
+        </Link>
           {isImage ? (
             <img
+              onClick={handleImageClick}
               src={useCreateBucketUrl(post?.imageId)}
               alt="post image"
-              className="post-card_img"
+              className="post-card_img cursor-pointer"
             />
           ) : isVideo ? (
                 <video controls loop autoPlay muted className={videoClass} >
                   <source src={useCreateBucketUrl(post?.imageId)} type={contentType} />
                 </video>
-          ) : null}  
-      </Link>
-
+          ) : null}
+          {isModalOpen && (
+            <div className="modal" style={{ backdropFilter: 'blur(15px)',  }}>
+              <div className="modal-content">
+                <img 
+                    className="modal-image" 
+                    src={useCreateBucketUrl(post?.imageId)} 
+                    alt="Post" 
+                    onClick={() => setIsModalOpen(false)} />
+              </div>
+            </div>
+          )}  
+   
       <PostStats post={post} userId={user.id} />
     </div>
   );
