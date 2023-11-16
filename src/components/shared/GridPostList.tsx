@@ -43,7 +43,6 @@ const GridPostList = ({posts, showUser=true, showStats=true }: GridPostListProps
         {posts.map((post) => {
           const contentType = contentTypes.get(post.imageId);
           const isImage = contentType && contentType.startsWith('image');
-          const isVideo = contentType && contentType.startsWith('video');
           return (
             <li key={post.$id} className='relative min-w-80 h-80'>
               <Link to={`/posts/${post.$id}`} className='grid-post_link'>

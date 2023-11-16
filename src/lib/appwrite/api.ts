@@ -125,10 +125,10 @@ export function getFilePreview(fileId: string) {
       const fileUrl = storage.getFilePreview(
         appwriteConfig.storageId,  
         fileId,
-        2000, // プレビューの幅(2000px)
-        2000, // プレビューの高さ(2000px) 
-        "top", // トリミングの基準位置(上部)
-        100 // プレビューの画質(100)
+        // 2000, // プレビューの幅(2000px)
+        // 2000, // プレビューの高さ(2000px) 
+        // "top", // トリミングの基準位置(上部)
+        // 100 // プレビューの画質(100)
       )
       return fileUrl; // プレビューURLを返す
     } catch (error) {
