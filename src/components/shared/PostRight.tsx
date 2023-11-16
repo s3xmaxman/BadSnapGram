@@ -42,7 +42,7 @@ return (
         const contentType = contentTypes.get(post.imageId);
         const isImage = contentType && contentType.startsWith('image');
         return (
-          <li  className='relative w-80 h-80'>
+          <li  className='relative w-60 h-60'>
             <Link  to={`/posts/${post.$id}`} className='grid-post_link'>
               {contentType ? (
                 isImage ? (

@@ -11,7 +11,7 @@ type UserImageProps = {
     return (
         <Link to={`/profile/${user.$id}`}>
             <div className="flex flex-col items-center space-y-4">
-                <div className="rounded-full overflow-hidden w-14 h-14 border-4 border-[#3121FF] myImage">
+                <div className="rounded-full overflow-hidden w-14 h-14 border-4 border-[white] myImage">
                     <img 
                         src={user.imageUrl || "/assets/icons/profile-placeholder.svg" } 
                         alt="creator"

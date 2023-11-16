@@ -6,7 +6,6 @@ import PostRight from './PostRight';
 
 
 const RightSidebar = () => {
-  const { data: currentUser} = useGetCurrentUser()
   const { data: posts } = useGetPosts()
   const [ displayPosts, setDisplayPosts ] = useState<Post[]>([]);
   
@@ -19,30 +18,20 @@ const RightSidebar = () => {
       const randomPosts = allPosts.sort(() => Math.random() - 0.5);
   
       // ランダムに選ばれた2つの投稿を取得
-      const randomTwoPosts = randomPosts.slice(0, 2);
+      const randomTwoPosts = randomPosts.slice(0, 3);
   
       // 表示する投稿を設定
       setDisplayPosts(randomTwoPosts);
     }
   }, [posts]);
  
-   
-
- 
   return (
     <nav className="rightsidebar">
-      <img 
-        src={currentUser?.imageUrl} 
-        alt="" 
-        className="h-20 w-20 rounded-full flex-center mb-4"
-      />
-      <h1 className='h3-bold md:h2-bold w-full mb-2 flex-center'>{currentUser?.name}</h1>
-      <p className='text-light-3 flex-center'>@{currentUser?.username}</p>
-      <div className="flex flex-col justify-center w-full py-4">
-        <p className='text-light-1'>おすすめ</p>
+      <div className="flex flex-col justify-center w-full">
+        <h2 className='text-light-1 h2-bold'>話題のポスト</h2>
           {displayPosts.map((item, index) => (
-            <div className='py-2'>
-              <PostRight key={`page-${index}`} posts={[item]} showStats={false} showUser ={false}/> 
+            <div className='py-6'>
+              <PostRight key={`page-${index}`} posts={[item]} showStats={true} showUser ={false}/> 
             </div>
           ))}
       </div>
