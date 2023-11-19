@@ -25,12 +25,10 @@ export const SigninValidation = z.object({
 
 
 export const PostValidation = z.object({
-
     caption: z.string().min(5, { message: "5文字以上入力してください。" }).max(2200, { message: "2200文字以内にしてください" }),
     file: z.custom<File[]>(),
     location: z.string().min(1, { message: "場所を入力してください" }).max(1000, { message: "1000文字以内にしてください" }),
     tags: z.string(),
-   
 })
 
 export const ProfileValidation = z.object({
